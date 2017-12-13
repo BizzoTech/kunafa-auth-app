@@ -58,24 +58,9 @@ function getUserInfo(accessToken) {
    }
   });
  }).then(user => {
-  return Promise.all([
-   getUserPicture('normal', accessToken),
-   getUserPicture('large', accessToken)
-  ]).then(pics => {
+  return getUserPicture('large', accessToken).then(pic => {
    user.image = {
-    uri: pics[1].data.url,
-    resized: [
-     {
-      size: 50,
-      uri: user.picture.data.url
-     }, {
-      size: 100,
-      uri: pics[0].data.url
-     }, {
-      size: 200,
-      uri: pics[1].data.url
-     }
-    ]
+    uri: pic.data.url
    }
    return user;
   });
