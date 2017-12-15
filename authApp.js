@@ -58,12 +58,26 @@ function getUserInfo(accessToken) {
    }
   });
  }).then(user => {
-  return getUserPicture('large', accessToken).then(pic => {
-   user.image = {
-    uri: pic.data.url
-   }
-   return user;
-  });
+
+  user.image = {
+    uri: `https://avatars.io/facebook/${user.id}`,
+    resized: [
+      {
+        size: 48,
+        uri: `https://avatars.io/facebook/${user.id}/small`
+      },
+      {
+        size: 130,
+        uri: `https://avatars.io/facebook/${user.id}/meduim`
+      },
+      {
+        size: 256,
+        uri: `https://avatars.io/facebook/${user.id}/large`
+      }
+    ]
+  }
+
+  return user;
  });
 }
 
